@@ -37,8 +37,10 @@
                         founded: {{ $car->founded }}
                     </span>
 
-                    <h2 class="text-5xl text-gray-700">
-                        {{ $car->name }}
+                    <h2 class="text-5xl text-gray-700 hover:text-gray-500">
+                        <a href="/cars/{{ $car->id }}">
+                            {{ $car->name }}
+                        </a>
                     </h2>
                     <p class="text-gray-700 text-lg py-6">
                         {{ $car ->description }}
