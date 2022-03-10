@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Headquarter;
+use App\Models\Product;
 use App\Models\CarModel;
+use App\Rules\Uppercase;
+use App\Http\Requests\CreateValidationRequest;
 
 class CarsController extends Controller
 {
@@ -15,7 +19,7 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        $cars = Car::paginate(2);
 
         return view('cars.index', [
             'cars'=> $cars
@@ -38,21 +42,18 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateValidationRequest $request)
     { 
-        // $car = new Car;
-        // $car->name = $request->input('name');
-        // $car->founded = $request->input('founded');
-        // $car->description = $request->input('description');
-        // $car->save();
 
-        $cardata = [
+        $request->validated();
+
+        // $cardata = ;
+
+        $car = Car::create([
             'name' => $request->input('name'),
-            'founded' => $request->input('founded'),
+            'founded' => $request->input ('founded'),
             'description' => $request->input('description')
-        ];
-
-        $car = Car::create($cardata);
+        ]);
 
         return redirect('/cars');
     }
@@ -67,6 +68,7 @@ class CarsController extends Controller
     {
 
         $car = Car::find($id);
+
 
         return view('cars.show')->with('car', $car);
     }
@@ -90,8 +92,10 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateValidationRequest $request, $id)
     {
+        $request->validated();
+
         $cardata = [
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
@@ -103,6 +107,8 @@ class CarsController extends Controller
 
         return redirect('/cars');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

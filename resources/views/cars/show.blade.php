@@ -9,7 +9,10 @@
             </h1>
 
             @if ($car->headquarter)
-
+                <p class="textlg text-fray-700 py-6">
+                    {{ $car->headquarter->headquarters }},
+                    {{ $car->headquarter->headquarters }}
+                </p>
             @else
                 <p class="textlg text-fray-700 py-6">
                     No Model Yet
@@ -57,10 +60,27 @@
                             </td>
                         </tr>
                     @empty
-                        <p>No Car Models Found</p>
+                        <p>No Car Products description</p>
                     @endforelse
 
                 </table>
+
+                @if ($car->products)
+                    <p class="text-left">
+                    Product types:
+                    @forelse ($car->products as $product)
+                        {{ $product->name }}
+                    @empty
+                        <p>
+                            no Car Product Description
+                        </p>
+                    @endforelse
+                    </p>
+                @else
+                    <p>
+                        no Car Products
+                    </p>
+                @endif
 
                 <hr class="mt-4 mb-8">
             </div>

@@ -49,7 +49,8 @@
                     <hr class="mt-4 mb-8">
                 </div>
             @endforeach
-        </div>
+        </div>        {{ $cars->links() }}
+
     </div>
 
 
